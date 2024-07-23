@@ -18,6 +18,12 @@ export class AdminService {
     });
   }
 
+  getAllCars(): Observable<any> {
+    return this.http.get(BASIC_URL+"/api/admin/cars", {
+      headers: this.createAuthorizationHeader()
+    })
+  }
+
   createAuthorizationHeader(): HttpHeaders {
     let authHeaders: HttpHeaders = new HttpHeaders();
     return authHeaders.set(
