@@ -12,4 +12,6 @@ public interface AdminService {
     List<CarDto> getAllCars();
 
     void deleteCar(Long id);
+
+    CarDto getCarById(Long id);
 }
