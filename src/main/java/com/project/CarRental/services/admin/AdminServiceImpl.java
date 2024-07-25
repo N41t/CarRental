@@ -58,4 +58,28 @@ public class AdminServiceImpl implements AdminService {
         }
         return null;
     }
+
+    @Override
+    public boolean updateCar(Long carId, CarDto carDto) throws IOException {
+        Optional<Car> optionalCar = carRepository.findById(carId);
+        if (optionalCar.isPresent()) {
+            Car existingCar = optionalCar.get();
+            if (carDto.getImage() != null)
+                existingCar.setImage(carDto.getImage().getBytes());
+
+            existingCar.setBrand(carDto.getBrand());
+            existingCar.setName(carDto.getName());
+            existingCar.setType(carDto.getType());
+            existingCar.setTransmission(carDto.getTransmission());
+            existingCar.setColor(carDto.getColor());
+            existingCar.setYear(carDto.getYear());
+            existingCar.setPrice(carDto.getPrice());
+            existingCar.setDescription(carDto.getDescription());
+            carRepository.save(existingCar);
+            return true;
+        } else {
+            return false;
+        }
+
+    }
 }
