@@ -58,4 +58,9 @@ public class CustomerServiceImpl implements CustomerService {
         Optional<Car> optionalCar = carRepository.findById(carId);
         return optionalCar.map(Car::getCarDto).orElse(null);
     }
+
+    @Override
+    public List<BookACarDto> getBookingsByUserId(Long userId) {
+        return bookACarRepository.findAllByUserId(userId).stream().map(BookACar::getBookACarDto).collect(Collectors.toList());
+    }
 }

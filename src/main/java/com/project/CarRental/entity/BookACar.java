@@ -1,6 +1,7 @@
 package com.project.CarRental.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.project.CarRental.dto.BookACarDto;
 import com.project.CarRental.enums.BookCarStatus;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -38,6 +39,21 @@ public class BookACar {
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnore
     private Car car;
+
+    public BookACarDto getBookACarDto() {
+        BookACarDto bookACarDto = new BookACarDto();
+        bookACarDto.setId(id);
+        bookACarDto.setDays(days);
+        bookACarDto.setBookCarStatus(bookCarStatus);
+        bookACarDto.setPrice(price);
+        bookACarDto.setToDate(toDate);
+        bookACarDto.setFromDate(fromDate);
+        bookACarDto.setEmail(user.getEmail());
+        bookACarDto.setUsername(user.getUsername());
+        bookACarDto.setUserId(user.getId());
+        bookACarDto.setCarId(car.getId());
+        return bookACarDto;
+    }
 
 
 }
