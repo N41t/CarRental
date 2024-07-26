@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
+<<<<<<< HEAD
 import { CustomerService } from '../../services/customer.service';
 import { ActivatedRoute } from '@angular/router';
+=======
+>>>>>>> 96a93e9079a833ca63a758b078e41ee6815a9210
 
 @Component({
   selector: 'app-book-car',
@@ -9,6 +12,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class BookCarComponent {
 
+<<<<<<< HEAD
   carId: number = this.activatedRoute.snapshot.params["id"];
   car: any;
   processedImage: any;
@@ -29,4 +33,6 @@ export class BookCarComponent {
     })
   }
 
+=======
+>>>>>>> 96a93e9079a833ca63a758b078e41ee6815a9210
 }

@@ -5,7 +5,11 @@ import { BookCarComponent } from './components/book-car/book-car.component';
 
 const routes: Routes = [
   { path: "dashboard", component: CustomerDashboardComponent },
+<<<<<<< HEAD
   { path: "book/:id", component: BookCarComponent}
+=======
+  { path: "book/:id", component: BookCarComponent }
+>>>>>>> 96a93e9079a833ca63a758b078e41ee6815a9210
 ];
 
 @NgModule({
