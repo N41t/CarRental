@@ -33,25 +33,35 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public boolean bookACar(BookACarDto bookACarDto) {
-        Optional<Car> optionalCar = carRepository.findById(bookACarDto.getCarId());
+    public boolean bookACar(Long carId, BookACarDto bookACarDto) {
+        Optional<Car> optionalCar = carRepository.findById(carId);
         Optional<User> optionalUser = userRepository.findById(bookACarDto.getUserId());
 
         if (optionalCar.isPresent() && optionalUser.isPresent()) {
-            Car existingCar = optionalCar.get();
-            BookACar bookACar = new BookACar();
-            bookACar.setUser(optionalUser.get());
-            bookACar.setCar(existingCar);
-            bookACar.setBookCarStatus(BookCarStatus.PENDING);
+            CarDto existingCar = getCarById(carId);
+            BookACar newBookACar = new BookACar();
+
+            newBookACar.setBookCarStatus(BookCarStatus.REJECTED);
+            newBookACar.setFromDate(bookACarDto.getFromDate());
+            newBookACar.setToDate(bookACarDto.getToDate());
+
             long diffInMilliSeconds = bookACarDto.getToDate().getTime() - bookACarDto.getFromDate().getTime();
-            long days = TimeUnit.MICROSECONDS.toDays(diffInMilliSeconds);
-            bookACar.setDays(days);
-            bookACar.setPrice(existingCar.getPrice() * days);
-            bookACarRepository.save(bookACar);
+            long days = TimeUnit.MILLISECONDS.toDays(diffInMilliSeconds);
+            newBookACar.setDays(days);
+
+            newBookACar.setPrice(existingCar.getPrice() * days);
+
+            newBookACar.setUser(optionalUser.get());
+            newBookACar.setCar(optionalCar.get());
+
+            bookACarRepository.save(newBookACar);
+
             return true;
         }
         return false;
     }
+
+
 
     @Override
     public CarDto getCarById(Long carId) {
@@ -63,4 +73,6 @@ public class CustomerServiceImpl implements CustomerService {
     public List<BookACarDto> getBookingsByUserId(Long userId) {
         return bookACarRepository.findAllByUserId(userId).stream().map(BookACar::getBookACarDto).collect(Collectors.toList());
     }
+
+
 }
