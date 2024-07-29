@@ -24,4 +24,8 @@ export class GetBookingsComponent {
     })
   }
 
+  changeBookingStatus(bookingId: number, status: string) {
+    console.log(bookingId, status);
+  }
+
 }
