@@ -4,6 +4,7 @@ import com.project.CarRental.dto.BookACarDto;
 import com.project.CarRental.dto.CarDto;
 import com.project.CarRental.entity.BookACar;
 import com.project.CarRental.entity.Car;
+import com.project.CarRental.enums.BookCarStatus;
 import com.project.CarRental.repository.BookACarRepository;
 import com.project.CarRental.repository.CarRepository;
 import lombok.RequiredArgsConstructor;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -91,5 +93,22 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public List<BookACarDto> getBookings() {
         return bookACarRepository.findAll().stream().map(BookACar::getBookACarDto).collect(Collectors.toList());
+    }
+
+    @Override
+    public boolean changeBookingStatus(Long bookingId, String status) {
+        Optional<BookACar> optionalBookACar = bookACarRepository.findById(bookingId);
+        if (optionalBookACar.isPresent()) {
+            BookACar existingBookACar = optionalBookACar.get();
+            if (Objects.equals(status, "Approve")) {
+                existingBookACar.setBookCarStatus(BookCarStatus.APPROVED);
+            } else {
+                existingBookACar.setBookCarStatus(BookCarStatus.REJECTED);
+            }
+
+            bookACarRepository.save(existingBookACar);
+            return true;
+        }
+        return false;
     }
 }

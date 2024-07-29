@@ -41,7 +41,7 @@ public class CustomerServiceImpl implements CustomerService {
             CarDto existingCar = getCarById(carId);
             BookACar newBookACar = new BookACar();
 
-            newBookACar.setBookCarStatus(BookCarStatus.REJECTED);
+            newBookACar.setBookCarStatus(BookCarStatus.PENDING);
             newBookACar.setFromDate(bookACarDto.getFromDate());
             newBookACar.setToDate(bookACarDto.getToDate());
 
