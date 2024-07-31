@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { AdminService } from '../../services/admin.service';
 
 @Component({
   selector: 'app-search-car',
@@ -15,8 +16,11 @@ export class SearchCarComponent {
   listOfColor = ["Red", "White", "Blue", "Black", "Orange", "Grey", "Silver"];
   listOfTransmission = ["Manual", "Automatic"];
   isSpinning = false;
+  cars: any = [];
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder,
+              private service: AdminService
+  ) {
     this.searchCarForm = this.fb.group({
       brand:[null],
       type:[null],
@@ -26,7 +30,16 @@ export class SearchCarComponent {
   }
 
   searchCar() {
+    this.isSpinning = true;
     console.log(this.searchCarForm.value);
+    this.service.searchCar(this.searchCarForm.value).subscribe((res) => {
+      console.log(res);
+      res.carDtoList.forEach(element => {
+        element.processedImg = 'data:image/jpeg;base64,' + element.returnedImage;
+        this.cars.push(element);
+      });
+      this.isSpinning = false;  
+    })
   }
 
 }
