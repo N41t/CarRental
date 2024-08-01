@@ -52,6 +52,11 @@ public class BookACar {
         bookACarDto.setUsername(user.getUsername());
         bookACarDto.setUserId(user.getId());
         bookACarDto.setCarId(car.getId());
+        bookACarDto.setBrand(car.getBrand());
+        bookACarDto.setName(car.getName());
+        bookACarDto.setColor(car.getColor());
+        bookACarDto.setType(car.getType());
+        bookACarDto.setTransmission(car.getTransmission());
         return bookACarDto;
     }
 

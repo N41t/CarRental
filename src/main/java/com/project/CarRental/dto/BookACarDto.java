@@ -27,4 +27,14 @@ public class BookACarDto {
     private String username;
 
     private String email;
+
+    private String brand;
+
+    private String name;
+
+    private String color;
+
+    private String type;
+
+    private String transmission;
 }
