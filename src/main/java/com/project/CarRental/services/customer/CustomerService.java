@@ -2,6 +2,8 @@ package com.project.CarRental.services.customer;
 
 import com.project.CarRental.dto.BookACarDto;
 import com.project.CarRental.dto.CarDto;
+import com.project.CarRental.dto.CarDtoListDto;
+import com.project.CarRental.dto.SearchCarDto;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -16,5 +18,7 @@ public interface CustomerService {
     CarDto getCarById(Long carId);
 
     List<BookACarDto> getBookingsByUserId(Long userId);
+
+    CarDtoListDto searchCar(SearchCarDto searchCarDto);
 
 }
