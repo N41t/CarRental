@@ -29,17 +29,23 @@ export class SearchCarComponent {
     })
   }
 
+  
   searchCar() {
+    
+
     this.isSpinning = true;
     console.log(this.searchCarForm.value);
     this.service.searchCar(this.searchCarForm.value).subscribe((res) => {
       console.log(res);
       res.carDtoList.forEach(element => {
-        element.processedImg = 'data:image/jpeg;base64,' + element.returnedImage;
-        this.cars.push(element);
+          element.processedImg = 'data:image/jpeg;base64,' + element.returnedImage;
+          this.cars.push(element);
+          
       });
       this.isSpinning = false;  
+      
     })
+
   }
 
 }
